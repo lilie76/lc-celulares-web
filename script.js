@@ -1,4 +1,4 @@
-// Menú hamburguesa
+// Menú móvil
 const menuBtn = document.getElementById("menuBtn");
 const nav = document.getElementById("nav");
 
@@ -7,108 +7,67 @@ if (menuBtn && nav) {
     nav.classList.toggle("active");
   });
 
-  nav.querySelectorAll("a").forEach((a) => {
+  nav.querySelectorAll("a").forEach(a => {
     a.addEventListener("click", () => nav.classList.remove("active"));
   });
 }
 
-// Año automático
-const year = document.getElementById("year");
-if (year) year.textContent = new Date().getFullYear();
-
-// Fotos desplegables
-const toggleFotos = document.getElementById("toggleFotos");
+// Galería desplegable
+const toggleGallery = document.getElementById("toggleGallery");
 const galleryWrap = document.getElementById("galleryWrap");
 
-// Carrusel
-const track = document.getElementById("carouselTrack");
-const prevBtn = document.getElementById("prevFoto");
-const nextBtn = document.getElementById("nextFoto");
-const dotsWrap = document.getElementById("carouselDots");
-
-let indexFoto = 0;
-
-function getSlides() {
-  return track ? Array.from(track.children) : [];
+if (toggleGallery && galleryWrap) {
+  toggleGallery.addEventListener("click", () => {
+    const isOpen = galleryWrap.classList.toggle("open");
+    toggleGallery.textContent = isOpen ? "Ocultar fotos" : "Ver fotos";
+  });
 }
 
-function renderDots() {
-  if (!dotsWrap) return;
-  const slides = getSlides();
-  dotsWrap.innerHTML = "";
+// Carrusel
+const track = document.getElementById("track");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const dots = document.getElementById("dots");
 
+if (track && prevBtn && nextBtn && dots) {
+  const slides = Array.from(track.children);
+  let index = 0;
+
+  // Dots
   slides.forEach((_, i) => {
     const dot = document.createElement("button");
-    dot.className = "carousel__dot" + (i === indexFoto ? " active" : "");
     dot.type = "button";
+    dot.className = "carousel__dot" + (i === 0 ? " active" : "");
     dot.setAttribute("aria-label", `Ir a foto ${i + 1}`);
-    dot.addEventListener("click", () => {
-      indexFoto = i;
-      updateCarousel();
-    });
-    dotsWrap.appendChild(dot);
+    dot.addEventListener("click", () => goTo(i));
+    dots.appendChild(dot);
   });
-}
 
-function updateCarousel() {
-  const slides = getSlides();
-  if (!track || slides.length === 0) return;
+  const dotEls = Array.from(dots.children);
 
-  if (indexFoto < 0) indexFoto = slides.length - 1;
-  if (indexFoto >= slides.length) indexFoto = 0;
-
-  track.style.transform = `translateX(-${indexFoto * 100}%)`;
-
-  if (dotsWrap) {
-    Array.from(dotsWrap.children).forEach((d, i) => {
-      d.classList.toggle("active", i === indexFoto);
-    });
+  function render() {
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dotEls.forEach((d, i) => d.classList.toggle("active", i === index));
   }
-}
 
-// Flechas
-if (prevBtn) prevBtn.addEventListener("click", () => { indexFoto--; updateCarousel(); });
-if (nextBtn) nextBtn.addEventListener("click", () => { indexFoto++; updateCarousel(); });
+  function goTo(i) {
+    index = (i + slides.length) % slides.length;
+    render();
+  }
 
-// Teclado (solo cuando está abierto)
-document.addEventListener("keydown", (e) => {
-  if (!galleryWrap || !galleryWrap.classList.contains("open")) return;
-  if (e.key === "ArrowLeft") { indexFoto--; updateCarousel(); }
-  if (e.key === "ArrowRight") { indexFoto++; updateCarousel(); }
-});
+  prevBtn.addEventListener("click", () => goTo(index - 1));
+  nextBtn.addEventListener("click", () => goTo(index + 1));
 
-// Si una imagen falla, se elimina el slide (para que no rompa)
-if (track) {
-  getSlides().forEach((slide) => {
-    const img = slide.querySelector("img");
-    if (!img) return;
-    img.onerror = () => {
-      slide.remove();
-      indexFoto = 0;
-      renderDots();
-      updateCarousel();
-    };
+  // Teclas izquierda/derecha
+  document.addEventListener("keydown", (e) => {
+    if (!galleryWrap || !galleryWrap.classList.contains("open")) return;
+    if (e.key === "ArrowLeft") goTo(index - 1);
+    if (e.key === "ArrowRight") goTo(index + 1);
   });
 
-  renderDots();
-  updateCarousel();
+  render();
 }
 
-// Botón Ver fotos / Ocultar fotos
-if (toggleFotos && galleryWrap) {
-  toggleFotos.addEventListener("click", () => {
-    const isOpen = galleryWrap.classList.toggle("open");
-    toggleFotos.setAttribute("aria-expanded", String(isOpen));
-    toggleFotos.textContent = isOpen ? "Ocultar fotos" : "Ver fotos";
-
-    if (isOpen) {
-      setTimeout(() => {
-        renderDots();
-        updateCarousel();
-      }, 50);
-    }
-  });
-}
 
 
 
