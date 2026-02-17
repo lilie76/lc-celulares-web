@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LYC Arreglo de Celulares</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a class="brand" href="#">
+        <!-- Logo: intenta img/foto1.jpg y si no, prueba foto1.jpg -->
+        <img
+          class="brand__logo"
+          src="img/foto1.jpg"
+          alt="Logo LYC"
+          onerror="this.onerror=null; this.src='foto1.jpg';"
+        />
+        <span class="brand__name">LYC Arreglo de Celulares</span>
+      </a>
+
+      <button class="menu" id="menuBtn" aria-label="Abrir menú">☰</button>
+
+      <nav class="nav" id="nav">
+        <a href="#servicios">Servicios</a>
+        <a href="#como">Cómo trabajamos</a>
+        <a href="#fotos">Fotos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <p class="badge">Arreglo y mantenimiento de celulares</p>
+
+          <h1 class="hero__title">Diagnóstico claro y solución real</h1>
+
+          <p class="hero__text">
+            Revisamos tu equipo, te explicamos qué tiene y cuánto saldría.
+            Si conviene arreglarlo, lo hacemos con prolijidad y con garantía sobre el trabajo realizado.
+            Si no conviene, también te lo decimos.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#contacto">Pedir presupuesto</a>
+            <a class="btn btn--ghost" href="#servicios">Ver servicios</a>
+          </div>
+
+          <div class="hero__cards" id="como">
+            <article class="card">
+              <h3>1) Revisamos y te contamos</h3>
+              <p>Te explicamos el problema en simple y el costo estimado antes de avanzar.</p>
+            </article>
+            <article class="card">
+              <h3>2) Te damos opciones</h3>
+              <p>Según el caso, te ofrecemos alternativas (repuesto, tiempo, conveniencia).</p>
+            </article>
+            <article class="card">
+              <h3>3) Arreglo con garantía</h3>
+              <p>Garantía sobre lo reparado. Tiempos según daño y disponibilidad de repuestos.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="hero__media">
+          <!-- Portada: tu foto3.jpg suelta en la carpeta principal -->
+          <img class="hero__img" src="foto3.jpg" alt="Portada LYC" onerror="this.style.display='none'">
+          <div class="hero__fallback">
+            <h3>Portada</h3>
+            <p>Si no ves la imagen, revisá que exista <strong>foto3.jpg</strong> en la carpeta principal.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="servicios">
+      <div class="container">
+        <h2 class="section__title">Servicios</h2>
+
+        <div class="services">
+          <div class="service">Pantalla (módulo / táctil) — instalación y prueba</div>
+          <div class="service">Batería — cambio y control de consumo</div>
+          <div class="service">Carga — pin / flex / conector (según modelo)</div>
+          <div class="service">Audio — micrófono / parlante / auricular</div>
+          <div class="service">Software — errores, reinicios, limpieza y configuración</div>
+          <div class="service">Diagnóstico — presupuesto claro antes de avanzar</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOTOS: desplegable + carrusel -->
+    <section class="section section--alt" id="fotos">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2 class="section__title">Fotos</h2>
+            <p class="section__text">Algunas imágenes del trabajo y equipos. Tocá para verlas.</p>
+          </div>
+
+          <button class="btn btn--ghost" id="toggleFotos" type="button" aria-expanded="false" aria-controls="galleryWrap">
+            Ver fotos
+          </button>
+        </div>
+
+        <div class="galleryWrap" id="galleryWrap">
+          <div class="carousel" aria-label="Carrusel de fotos">
+            <button class="carousel__btn carousel__btn--prev" id="prevFoto" type="button" aria-label="Foto anterior">‹</button>
+
+            <div class="carousel__viewport">
+              <div class="carousel__track" id="carouselTrack">
+                <div class="carousel__slide"><img src="foto1.jpg" alt="Foto 1"></div>
+                <div class="carousel__slide"><img src="foto2.jpg" alt="Foto 2"></div>
+                <div class="carousel__slide"><img src="foto3.jpg" alt="Foto 3"></div>
+                <div class="carousel__slide"><img src="foto4.jpg" alt="Foto 4"></div>
+                <div class="carousel__slide"><img src="foto5.jpg" alt="Foto 5"></div>
+                <div class="carousel__slide"><img src="foto6.jpg" alt="Foto 6"></div>
+              </div>
+            </div>
+
+            <button class="carousel__btn carousel__btn--next" id="nextFoto" type="button" aria-label="Foto siguiente">›</button>
+          </div>
+
+          <div class="carousel__dots" id="carouselDots" aria-label="Paginación del carrusel"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contacto">
+      <div class="container contact">
+        <div>
+          <h2 class="section__title">Contacto</h2>
+          <p class="contact__text">
+            Para ayudarte más rápido, mandanos:
+            <strong>modelo</strong>, qué le pasa, y si fue <strong>golpe</strong> o <strong>mojado</strong>.
+          </p>
+
+          <div class="contact__buttons">
+            <a class="btn btn--primary" href="https://wa.me/5491168383423" target="_blank" rel="noopener">
+              WhatsApp
+            </a>
+
+            <!-- Email: abre Gmail web (siempre funciona) -->
+            <a
+              class="btn btn--ghost"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=michycell10060@gmail.com&su=Consulta%20LYC&body=Hola%2C%20quiero%20consultar%20por%20un%20arreglo.%0AModelo%3A%20%0AProblema%3A%20%0A"
+              target="_blank"
+              rel="noopener"
+            >
+              Email
+            </a>
+          </div>
+        </div>
+
+        <div class="contact__box">
+          <p class="contact__hint">
+            <strong>Transparencia:</strong> algunos equipos muy mojados o con placa dañada pueden no quedar estables.
+            En esos casos te lo avisamos y vemos opciones.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <small>© <span id="year"></span> LYC Arreglo de Celulares</small>
+      <small class="muted">Atención clara • Trabajo prolijo</small>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
